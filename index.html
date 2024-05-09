@@ -31,11 +31,30 @@
 <script>
   document.getElementById("yesBtn").addEventListener("click", function() {
     document.getElementById("response").innerText = "Yay!";
+    sendMessageToDiscord("Yes, I will marry you!");
   });
 
   document.getElementById("noBtn").addEventListener("click", function() {
     document.getElementById("response").innerText = "Me sad :(";
   });
+
+  function sendMessageToDiscord(message) {
+    fetch('https://discord.com/api/webhooks/1238046270640099369/X7KAuWf42Siyej0QJkTNe7le5XAtzQrmMDSj8-9AOfcOAiaWe2dhczhtXW1xEvMCSyua', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: message
+      }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to send message to Discord');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }
 </script>
 </body>
 </html>
